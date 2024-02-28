@@ -1,0 +1,40 @@
+---
+
+  - name: Install and start mariaDB services with https
+    hosts: host or server name 
+    become: true
+
+    tasks:
+        - name: update apt repo
+          apt:
+            update_cache: yes
+          when: ansible_os_family == "Debian"
+
+        - name: Install MariaDB server
+          package:
+              name: mariadb-server
+              state: present
+
+        - name: Install openSSL
+          package:
+              name: openssl
+              state: present
+
+        - name: Generate SSL certificate and key
+          command: openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/mysql/ssl/mariadb-key.pem -out /etc/mysql/ssl/mariadb-cert.pem
+          creates: /etc/mysql/ssl/mariadb-cert.pem
+        
+        - name: Configure mariadb for https
+          lineinfile:
+              path: /etc/mysql/mariadb.conf.d/50-server.cnf
+              line: |
+                  [mysqld]
+                  ss1-ca = /etc/mysql/ssl/mariadb-cert.pem
+                  ssl-cert = /etc/mysql/ssl/mariadb-cert.pem
+                  ssl-key = /etc/mysql/ssl/mariadb-key.pem
+          notify: restart mariadb
+
+        - name: start MariaDB service
+          services:
+              name: mariaDB
+              state: started
