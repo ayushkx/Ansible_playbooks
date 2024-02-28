@@ -1,0 +1,14 @@
+---
+
+- name: Get the input from user and Print value using debug
+  hosts: localhost
+  gather_facts: true
+
+  vars_prompt:
+    - name: user_input
+      prompt: "please enter the value" 
+
+  tasks:
+    - name: Print User Input
+      debug:
+        msg:  "User Input is {{user_input}}"
