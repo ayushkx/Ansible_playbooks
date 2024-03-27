@@ -1,6 +1,6 @@
 ---
 
-- name: Simple Airthmetic Calculator
+- name: Simple Arithmetic Calculator
   hosts: localhost
 
   vars_prompt:
@@ -9,35 +9,40 @@
     - name: b
       prompt: enter the value of b 
     - name: c 
-      prompt: enter the operations "+" , "-" , "*" or "/"
+      prompt: enter the operation "+" , "-" , "*" or "/"
   vars: 
-    addition: "{{a|int + b|int}}"
-    subtraction: "{{a|int - b|int}}"
-    multiply: "{{a|int * b|int}}"
-    divide: "{{a|int / b|int}}"
+    addition: "{{ a | int + b | int }}"
+    subtraction: "{{ a | int - b | int }}"
+    multiply: "{{ a | int * b | int }}"
+    divide: "{{ a | int / b | int }}"
   gather_facts: false
 
   tasks:
-    - name: Displaying value of  a and b
+    - name: Displaying value of a and b
       debug:
         msg: 
-        - "a value is {{a}} and b value is {{b}}"
+          - "a value is {{ a }} and b value is {{ b }}"
 
     - name: Displaying value of result
-      when: {{c == "+"}}
-        debug:
-          msg:
-          - "result is {{addition}}"
-      when: {{c == "-"}}
-        debug: 
-          msg:
-          - "result is {{subtraction}}"
-      when: {{c == "*"}}
-        debug:
-          msg:
-          - "result is {{multiply}}"
-      when: {{c == "/"}}
-        debug:
-          msg:
-          - "result is {{divide}}"
+      when: c == "+"
+      debug:
+        msg:
+          - "result is {{ addition }}"
+    - name: Displaying value of result
+      when: c == "-"
+      debug: 
+        msg:
+          - "result is {{ subtraction }}"
+    - name: Displaying value of result
+      when: c == "*"
+      debug:
+        msg:
+          - "result is {{ multiply }}"
+    - name: Displaying value of result
+      when: c == "/"
+      debug:
+        msg:
+          - "result is {{ divide }}"
+
+      
 
