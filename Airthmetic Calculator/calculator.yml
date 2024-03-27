@@ -25,11 +25,15 @@
 
     - name: Displaying value of result
       when: {{c == "+"}}
-        prompt: result is {{addition}}
+        prompt:
+        - result is {{addition}}
       when: {{c == "-"}}
-        prompt: result is {{subtraction}}
+        prompt: 
+        - result is {{subtraction}}
       when: {{c == "*"}}
-        prompt: result is {{multiply}}
+        prompt: 
+        - result is {{multiply}}
       when: {{c == "/"}}
-        prompt: result is {{divide}}
+        prompt: 
+        - result is {{divide}}
 
