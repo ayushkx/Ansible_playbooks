@@ -25,15 +25,19 @@
 
     - name: Displaying value of result
       when: {{c == "+"}}
-        prompt:
-        - result is {{addition}}
+        debug:
+          msg:
+          - "result is {{addition}}"
       when: {{c == "-"}}
-        prompt: 
-        - result is {{subtraction}}
+        debug: 
+          msg:
+          - "result is {{subtraction}}"
       when: {{c == "*"}}
-        prompt: 
-        - result is {{multiply}}
+        debug:
+          msg:
+          - "result is {{multiply}}"
       when: {{c == "/"}}
-        prompt: 
-        - result is {{divide}}
+        debug:
+          msg:
+          - "result is {{divide}}"
 
