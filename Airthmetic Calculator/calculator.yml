@@ -1,0 +1,35 @@
+---
+
+- name: Simple Airthmetic Calculator
+  hosts: localhost
+
+  vars_prompt:
+    - name: a
+      prompt: enter the value of a
+    - name: b
+      prompt: enter the value of b 
+    - name: c 
+      prompt: enter the operations "+" , "-" , "*" or "/"
+  vars: 
+    addition: "{{a|int + b|int}}"
+    subtraction: "{{a|int - b|int}}"
+    multiply: "{{a|int * b|int}}"
+    divide: "{{a|int / b|int}}"
+  gather_facts: false
+
+  tasks:
+    - name: Displaying value of  a and b
+      debug:
+        msg: 
+        - "a value is {{a}} and b value is {{b}}"
+
+    - name: Displaying value of result
+      when: {{c == "+"}}
+        prompt: result is {{addition}}
+      when: {{c == "-"}}
+        prompt: result is {{subtraction}}
+      when: {{c == "*"}}
+        prompt: result is {{multiply}}
+      when: {{c == "/"}}
+        prompt: result is {{divide}}
+
