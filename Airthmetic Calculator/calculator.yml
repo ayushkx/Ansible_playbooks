@@ -7,10 +7,10 @@
     - name: a
       prompt: enter the value of a
     - name: b
-      prompt: enter the value of b 
-    - name: c 
+      prompt: enter the value of b
+    - name: c
       prompt: enter the operation "+" , "-" , "*" or "/"
-  vars: 
+  vars:
     addition: "{{ a | int + b | int }}"
     subtraction: "{{ a | int - b | int }}"
     multiply: "{{ a | int * b | int }}"
@@ -20,7 +20,7 @@
   tasks:
     - name: Displaying value of a and b
       debug:
-        msg: 
+        msg:
           - "a value is {{ a }} and b value is {{ b }}"
 
     - name: Displaying value of result
@@ -30,7 +30,7 @@
           - "result is {{ addition }}"
     - name: Displaying value of result
       when: c == "-"
-      debug: 
+      debug:
         msg:
           - "result is {{ subtraction }}"
     - name: Displaying value of result
@@ -43,6 +43,3 @@
       debug:
         msg:
           - "result is {{ divide }}"
-
-      
-
